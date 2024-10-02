@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>App de quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="my-8 mx-auto">
+      <h1 class="text-4xl font-bold text-center">
+        Bienvenue sur l'application de quiz
+      </h1>
+      <div class="flex justify-center my-8">
+        <button
+          id="start"
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded animate-pulse anim"
+        >
+          Commencer le quiz
+        </button>
+      </div>
+    </div>
+    <div id="app" class="flex justify-center px-6 text-center invisible">
+      <div id="questions">
+        <div class="text-xl font-semibold">
+          Qui est le plus riche du monde ?
+        </div>
+        <div>
+          <select
+            v-model="selected"
+            class="p-2 border border-blue-500 bg-gray-100 shadow-md rounded m-1 text-lg"
+          >
+            <option value="">Choisissez une réponse</option>
+            <option v-for="answer in answers" :value="answer">Elon Musk</option>
+            <option v-for="answer in answers" :value="answer">Ayena</option>
+            <option v-for="answer in answers" :value="answer">Arnauld</option>
+            <option v-for="answer in answers" :value="answer">
+              Jeff bezos
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="flex justify-center mt-8 invisible">
+      <button
+        class="bg-gray-200 hover:bg-blue-700 hover:text-white font-bold py-2 px-4 rounded anim"
+      >
+        Question suivante
+      </button>
+    </div>
+    <div id="scor" class="text-center my-8 invisible">
+      Votre sorore est de : 0/20
+    </div>
+    <div
+      id="finalScor"
+      class="text-center text-3xl font-semibold my-8 invisible"
+    >
+      Vous avez terminer avec : 0/20
+    </div>
+    <button
+      class="bg-blue-500 block mx-auto hover:bg-blue-700 text-white font-bold py-2 px-4 rounded anim invisible"
+    >
+      Recomencer
+    </button>
+    <script src="./main.js"></script>
+  </body>
+</html>
