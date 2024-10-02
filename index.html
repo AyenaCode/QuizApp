@@ -21,30 +21,16 @@
         </button>
       </div>
     </div>
-    <div id="app" class="flex justify-center px-6 text-center invisible">
-      <div id="questions">
-        <div class="text-xl font-semibold">
-          Qui est le plus riche du monde ?
-        </div>
-        <div>
-          <select
-            v-model="selected"
-            class="p-2 border border-blue-500 bg-gray-100 shadow-md rounded m-1 text-lg"
-          >
-            <option value="">Choisissez une réponse</option>
-            <option v-for="answer in answers" :value="answer">Elon Musk</option>
-            <option v-for="answer in answers" :value="answer">Ayena</option>
-            <option v-for="answer in answers" :value="answer">Arnauld</option>
-            <option v-for="answer in answers" :value="answer">
-              Jeff bezos
-            </option>
-          </select>
-        </div>
-      </div>
+    <div
+      id="app"
+      class="flex flex-col justify-center px-6 md:px-32 text-center invisible"
+    >
+      <!-- Affichage de la question -->
     </div>
-    <div class="flex justify-center mt-8 invisible">
+    <div class="flex justify-center mt-8">
       <button
         class="bg-gray-200 hover:bg-blue-700 hover:text-white font-bold py-2 px-4 rounded anim"
+        id="nextQuestion"
       >
         Question suivante
       </button>
@@ -63,6 +49,6 @@
     >
       Recomencer
     </button>
-    <script src="./main.js"></script>
+    <script type="module" src="./main.js"></script>
   </body>
 </html>
