@@ -111,19 +111,45 @@ const questions = [
 const start = document.getElementById("start");
 const appQuestionContainer = document.getElementById("app");
 const nextQuestion = document.getElementById("nextQuestion");
+const validButton = document.getElementById("valid");
+const congrateElement = document.getElementById("congrate");
+const wrongElement = document.getElementById("wrong");
 let next = 0;
+let goodAnswer = 0;
+let badAnswer = 0;
 
 //Démarrage du quiz
 start.addEventListener("click", () => {
+  next = 0;
   appQuestionContainer.classList.remove("invisible");
+  validButton.classList.remove("invisible");
   start.remove();
   appQuestionContainer.innerHTML = displayQuestion(questions, next);
+});
+
+//Validation de la réponse
+validButton.addEventListener("click", () => {
+  checkAnswer();
+  appQuestionContainer.classList.add("invisible");
 });
 
 //Passage à la question suivante
 nextQuestion.addEventListener("click", () => {
   next++;
+  if (next === questions.length) {
+    appQuestionContainer.innerHTML = `
+      <div class="text-xl font-semibold">Fin du quiz</div>
+      <div class="text-lg font-semibold">Vous avez ${goodAnswer} bonnes réponses et ${badAnswer} mauvaises réponses</div>
+    `;
+    nextQuestion.classList.add("invisible");
+    validButton.classList.add("invisible");
+    return;
+  }
+  appQuestionContainer.classList.remove("invisible");
   appQuestionContainer.innerHTML = displayQuestion(questions, next);
+  wrongElement.classList.add("invisible");
+  congrateElement.classList.add("invisible");
+  nextQuestion.classList.add("invisible");
 });
 
 // Fontion pour afficher les questions
@@ -139,7 +165,7 @@ function displayQuestion(questionsTab, nextIndex) {
       questionsTab[nextIndex].question
     } </div>
      <select
-        v-model="selected"
+        value="selected"
         class="p-2 border border-blue-500 bg-gray-100 shadow-md rounded m-1 text-lg"
       >
         <option value="" disabled selected>Choisir une réponse</option>
@@ -150,7 +176,27 @@ function displayQuestion(questionsTab, nextIndex) {
           )
           .join("")}
       </select>
+      
     `;
-  console.log(nextIndex);
+
   return questionValue;
+}
+
+// Fonction pour vérifier la réponse sélectionnée avant de passer à la question suivante
+function checkAnswer() {
+  const selected = document.querySelector("select").value;
+  if (selected) {
+    nextQuestion.classList.remove("invisible");
+    if (selected === questions[next].answer) {
+      goodAnswer++;
+      wrongElement.classList.add("invisible");
+      congrateElement.classList.remove("invisible");
+    } else {
+      congrateElement.classList.add("invisible");
+      wrongElement.classList.remove("invisible");
+      badAnswer++;
+    }
+  } else {
+    alert("Veuillez choisir une réponse");
+  }
 }
