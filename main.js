@@ -109,40 +109,57 @@ const questions = [
 ];
 
 const start = document.getElementById("start");
+const restart = document.getElementById("restart");
 const appQuestionContainer = document.getElementById("app");
 const nextQuestion = document.getElementById("nextQuestion");
 const validButton = document.getElementById("valid");
 const congrateElement = document.getElementById("congrate");
 const wrongElement = document.getElementById("wrong");
+const scorElement = document.getElementById("scor");
+
 let next = 0;
 let goodAnswer = 0;
-let badAnswer = 0;
 
 //Démarrage du quiz
 start.addEventListener("click", () => {
   next = 0;
   appQuestionContainer.classList.remove("invisible");
   validButton.classList.remove("invisible");
-  start.remove();
+  start.classList.add("invisible");
   appQuestionContainer.innerHTML = displayQuestion(questions, next);
+  scorElement.classList.remove("invisible");
+  scorElement.innerHTML = `Votre score: ${goodAnswer}/${questions.length}`;
 });
 
 //Validation de la réponse
 validButton.addEventListener("click", () => {
-  checkAnswer();
-  appQuestionContainer.classList.add("invisible");
+  if (document.querySelector("select").value) {
+    checkAnswer();
+    appQuestionContainer.classList.add("invisible");
+    validButton.classList.add("invisible");
+  } else {
+    checkAnswer();
+  }
+  scorElement.innerHTML = `Votre score: ${goodAnswer}/${questions.length}`;
 });
 
 //Passage à la question suivante
 nextQuestion.addEventListener("click", () => {
   next++;
+  validButton.classList.remove("invisible");
   if (next === questions.length) {
     appQuestionContainer.innerHTML = `
       <div class="text-xl font-semibold">Fin du quiz</div>
-      <div class="text-lg font-semibold">Vous avez ${goodAnswer} bonnes réponses et ${badAnswer} mauvaises réponses</div>
+      <div class="text-lg font-semibold">Vous avez ${goodAnswer} bonnes réponses et ${
+      questions.length - goodAnswer
+    } mauvaises réponses sur ${questions.length}</div>
     `;
+    appQuestionContainer.classList.remove("invisible");
+    restart.classList.remove("invisible");
     nextQuestion.classList.add("invisible");
     validButton.classList.add("invisible");
+    congrateElement.classList.add("invisible");
+    wrongElement.classList.add("invisible");
     return;
   }
   appQuestionContainer.classList.remove("invisible");
@@ -150,6 +167,21 @@ nextQuestion.addEventListener("click", () => {
   wrongElement.classList.add("invisible");
   congrateElement.classList.add("invisible");
   nextQuestion.classList.add("invisible");
+});
+
+//Recommencer le quiz
+restart.addEventListener("click", () => {
+  restart.classList.add("invisible");
+  next = 0;
+  goodAnswer = 0;
+
+  appQuestionContainer.innerHTML = displayQuestion(questions, next);
+  appQuestionContainer.classList.add("invisible");
+  start.classList.remove("invisible");
+  nextQuestion.classList.add("invisible");
+  validButton.classList.add("invisible");
+  congrateElement.classList.add("invisible");
+  wrongElement.classList.add("invisible");
 });
 
 // Fontion pour afficher les questions
@@ -194,7 +226,6 @@ function checkAnswer() {
     } else {
       congrateElement.classList.add("invisible");
       wrongElement.classList.remove("invisible");
-      badAnswer++;
     }
   } else {
     alert("Veuillez choisir une réponse");

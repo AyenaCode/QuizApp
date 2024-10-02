@@ -8,14 +8,14 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="my-8 mx-auto">
-      <h1 class="text-4xl font-bold text-center">
+    <div class="mx-auto">
+      <h1 class="text-4xl my-8 font-bold text-center">
         Bienvenue sur l'application de quiz
       </h1>
-      <div class="flex justify-center my-8">
+      <div class="flex justify-center">
         <button
           id="start"
-          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded animate-pulse anim"
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded animate-pulse anim absolute top-1/3"
         >
           Commencer le quiz
         </button>
@@ -23,10 +23,16 @@
     </div>
     <div
       id="app"
-      class="flex flex-col justify-center px-6 md:px-32 text-center invisible"
+      class="px-6 md:px-32 text-center invisible flex flex-col justify-center"
     >
       <!-- Affichage de la question -->
     </div>
+    <button
+      id="restart"
+      class="bg-blue-500 text-white hover:bg-blue-700 mt-8 p-2 block mx-auto animate-bounce invisible anim"
+    >
+      Refaire le quiz
+    </button>
 
     <button
       class="bg-blue-500 text-white hover:bg-blue-700 p-2 block mx-auto invisible anim"
@@ -54,20 +60,7 @@
         Question suivante
       </button>
     </div>
-    <div id="scor" class="text-center my-8 invisible">
-      Votre sorore est de : 0/20
-    </div>
-    <div
-      id="finalScor"
-      class="text-center text-3xl font-semibold my-8 invisible"
-    >
-      Vous avez terminer avec : 0/20
-    </div>
-    <button
-      class="bg-blue-500 block mx-auto hover:bg-blue-700 text-white font-bold py-2 px-4 rounded anim invisible"
-    >
-      Recomencer
-    </button>
+    <div id="scor" class="text-center my-8 invisible">Votre score : 0/20</div>
     <script type="module" src="./main.js"></script>
   </body>
 </html>
